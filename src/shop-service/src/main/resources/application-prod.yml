@@ -1,0 +1,18 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}:${POSTGRESQL_PORT}/${POSTGRES_SHOP_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+  grpc:
+    client:
+      channels:
+        user-grpc:
+          address: ${USER_GRPC_SERVER_HOST}
+
+scheduler:
+  categories:
+    cleanup:
+      cron: ${CATEGORIES_SCHEDULER_CRON:-}

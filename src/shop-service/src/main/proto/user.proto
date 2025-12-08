@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option java_multiple_files = true;
+option java_package = "api.edu.school21.proto.grpc.v1";
+option java_outer_classname = "UserProto";
+
+service User {
+  rpc Create (CreateUserRqDto) returns (JwtTokenRsDto);
+  rpc Authentification (AuthentificationUserRqDto) returns (JwtTokenRsDto);
+  rpc ChangePassword (ChangeUserPasswordRqDto) returns (JwtTokenRsDto);
+  rpc PasswordRecovery (PasswordRecoveryUserRqDto) returns (google.protobuf.Empty);
+  rpc IsUserAuthorize (google.protobuf.Empty) returns (google.protobuf.Empty);
+  rpc RefreshUserToken (google.protobuf.Empty) returns (JwtTokenRsDto);
+}
+
+message CreateUserRqDto {
+  string firstName = 1;
+  string lastName = 2;
+  string password = 3;
+  string phoneNumber = 4;
+  string mail = 5;
+}
+
+message AuthentificationUserRqDto {
+  string mail = 1;
+  string password = 2;
+}
+
+message PasswordRecoveryUserRqDto {
+  string mail = 1;
+}
+
+message ChangeUserPasswordRqDto {
+  string newPassword = 3;
+}
+
+message JwtTokenRsDto {
+  string token = 1;
+}

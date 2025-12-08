@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: user-service
+  jpa:
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:db.changelog/db.changelog-patches.xml
+    enabled: true

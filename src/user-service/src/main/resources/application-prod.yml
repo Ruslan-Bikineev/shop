@@ -1,0 +1,9 @@
+spring:
+  grpc:
+    server:
+      port: ${SERVER_PORT:8080}
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST}:${POSTGRESQL_PORT}/${POSTGRES_USER_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}

@@ -57,7 +57,9 @@ dkms.conf
 
 # Folders
 .idea
-target
+target/
+build/
+.gradle
 .mvn
 
 *.iml

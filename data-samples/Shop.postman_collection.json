@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "50ff06ab-4cbe-4599-bf5f-caf0cf1b6bb5",
-		"name": "Shop",
+		"_postman_id": "9bbf9cee-1723-4846-816a-7ba58eb62d15",
+		"name": "shop",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "34526724"
 	},
@@ -15,6 +15,16 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -27,18 +37,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/clients",
-							"protocol": "http",
+							"raw": "{{host}}/clients",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"clients"
 							],
 							"query": [
@@ -60,21 +63,24 @@
 				{
 					"name": "Get clients by name and surname",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/clients/search",
-							"protocol": "http",
+							"raw": "{{host}}/clients/search",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"clients",
 								"search"
 							],
@@ -97,6 +103,16 @@
 				{
 					"name": "Create client",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -109,17 +125,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8080/api/clients",
-							"protocol": "http",
+							"raw": "{{host}}/clients",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
 								"clients"
 							]
 						}
@@ -129,6 +139,16 @@
 				{
 					"name": "Update or create if not exists",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -141,18 +161,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/clients/",
-							"protocol": "http",
+							"raw": "{{host}}/clients/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"clients",
 								""
 							]
@@ -163,6 +176,16 @@
 				{
 					"name": "Update client by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -175,18 +198,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/clients/",
-							"protocol": "http",
+							"raw": "{{host}}/clients/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"clients",
 								""
 							]
@@ -200,20 +216,283 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/clients/",
-							"protocol": "http",
+							"raw": "{{host}}/clients/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"clients",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.collectionVariables.set(\"access_token\", response[\"access_token\"]);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/refresh",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"refresh"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "26",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.collectionVariables.set(\"access_token\", response[\"access_token\"]);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mail\": \"Yolanda4@hotmail.com\",\n    \"password\": \"9afbbe06\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/auth",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"pm.collectionVariables.set(\"access_token\", response[\"access_token\"]);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"{{$randomUserName}}\",\n    \"last_name\": \"{{$randomFullName}}\",\n    \"mail\": \"{{$randomEmail}}\",\n    \"password\": \"admin\",\n    \"phone_number\": \"+7(123)456-78-90\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"new_password\": \"usere\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/change-password",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"mail\": \"{{$randomEmail}}\"\n    \"mail\": \"Yolanda4@hotmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/reset",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Is user authorize",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"{{$randomUserName}}\",\n    \"last_name\": \"{{$randomFullName}}\",\n    \"mail\": \"{{$randomEmail}}\",\n    \"password\": \"admin\",\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users/authorization",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"authorization"
 							]
 						}
 					},
@@ -227,21 +506,24 @@
 				{
 					"name": "Get all supliers",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/suppliers",
-							"protocol": "http",
+							"raw": "{{host}}/suppliers",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"suppliers"
 							]
 						}
@@ -251,21 +533,24 @@
 				{
 					"name": "Get suplier by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/suppliers/",
-							"protocol": "http",
+							"raw": "{{host}}/suppliers/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"suppliers",
 								""
 							]
@@ -276,21 +561,24 @@
 				{
 					"name": "Delete suplier by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/suppliers/",
-							"protocol": "http",
+							"raw": "{{host}}/suppliers/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"suppliers",
 								""
 							]
@@ -301,6 +589,16 @@
 				{
 					"name": "Create supplier",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -313,18 +611,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/suppliers",
-							"protocol": "http",
+							"raw": "{{host}}/suppliers",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"suppliers"
 							]
 						}
@@ -334,6 +625,16 @@
 				{
 					"name": "Update suplier by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -346,18 +647,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/suppliers/",
-							"protocol": "http",
+							"raw": "{{host}}/suppliers/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"suppliers",
 								""
 							]
@@ -368,6 +662,16 @@
 				{
 					"name": "Update or create if not exists",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -380,18 +684,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/suppliers/753bf9bb-4cb1-4bd8-8088-3bfb466d2493",
-							"protocol": "http",
+							"raw": "{{host}}/suppliers/753bf9bb-4cb1-4bd8-8088-3bfb466d2493",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"suppliers",
 								"753bf9bb-4cb1-4bd8-8088-3bfb466d2493"
 							]
@@ -407,6 +704,16 @@
 				{
 					"name": "Create Image",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -421,18 +728,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://shop.ru/api/images",
-							"protocol": "http",
+							"raw": "{{host}}/images",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"images"
 							]
 						}
@@ -442,6 +742,16 @@
 				{
 					"name": "Update image or create if not exists",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -462,19 +772,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://shop.ru/api/images/",
-							"protocol": "http",
+							"raw": "{{host}}images/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}images"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
-								"images",
 								""
 							]
 						}
@@ -484,6 +786,16 @@
 				{
 					"name": "Update image",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -504,18 +816,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://shop.ru/api/images/",
-							"protocol": "http",
+							"raw": "{{host}}/images/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"images",
 								""
 							]
@@ -526,6 +831,16 @@
 				{
 					"name": "Delete image by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -546,18 +861,11 @@
 							]
 						},
 						"url": {
-							"raw": "https://shop.ru/api/images/",
-							"protocol": "http",
+							"raw": "{{host}}/images/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"images",
 								""
 							]
@@ -568,18 +876,23 @@
 				{
 					"name": "Get image by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://127.0.0.1:8080/images/",
-							"protocol": "http",
+							"raw": "{{host}}/images/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
 								"images",
 								""
@@ -596,6 +909,16 @@
 				{
 					"name": "Create product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -608,18 +931,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/products",
-							"protocol": "http",
+							"raw": "{{host}}/products",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"products"
 							]
 						}
@@ -629,6 +945,16 @@
 				{
 					"name": "Update or create if not exists",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -641,18 +967,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/products/",
-							"protocol": "http",
+							"raw": "{{host}}/products/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"products",
 								""
 							]
@@ -663,6 +982,16 @@
 				{
 					"name": "Update product",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -675,18 +1004,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/products/",
-							"protocol": "http",
+							"raw": "{{host}}/products/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"products",
 								""
 							]
@@ -697,6 +1019,16 @@
 				{
 					"name": "Decrease in quantity of product by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -709,18 +1041,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://shop.ru/api/products/amount/?amount=0",
-							"protocol": "http",
+							"raw": "{{host}}/products/amount/?amount=0",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"products",
 								"amount",
 								""
@@ -738,21 +1063,24 @@
 				{
 					"name": "Get all products",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/products",
-							"protocol": "http",
+							"raw": "{{host}}/products",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"products"
 							]
 						}
@@ -762,21 +1090,24 @@
 				{
 					"name": "Get product image by product id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/products/image/",
-							"protocol": "http",
+							"raw": "{{host}}/products/image/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"products",
 								"image",
 								""
@@ -788,21 +1119,24 @@
 				{
 					"name": "Delete product by id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "https://shop.ru/api/products/",
-							"protocol": "http",
+							"raw": "{{host}}/products/",
 							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
+								"{{host}}"
 							],
-							"port": "8080",
 							"path": [
-								"api",
-								"v1",
 								"products",
 								""
 							]
@@ -811,6 +1145,40 @@
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "access_token",
+			"value": ""
+		},
+		{
+			"key": "host",
+			"value": ""
 		}
 	]
 }

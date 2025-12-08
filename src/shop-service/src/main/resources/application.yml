@@ -1,0 +1,25 @@
+server:
+  forward-headers-strategy: framework
+spring:
+  application:
+    name: shop
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger/index.html
+    disable-swagger-default-url: true

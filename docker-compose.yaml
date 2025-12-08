@@ -13,44 +13,71 @@ services:
       start_period: 10s
     volumes:
       - shop-postgres-db-data:/var/lib/postgresql/data
-  shop-backend-1:
-    build: ./
-    container_name: shop-backend-1
-    hostname: shop-1
+      - ./data-samples/init-databases.sh:/docker-entrypoint-initdb.d/init-databases.sh
+  shop-service-1:
+    build: ./src/shop-service/
+    container_name: shop-service-1
+    hostname: shop-service-1
     restart: on-failure
     env_file:
       - .env
     environment:
-      DB_HOST: shop-db
       SERVER_PORT: 8080
-      SQL_INIT_MODE: always
+      SPRING_PROFILES_ACTIVE: prod
       CATEGORIES_SCHEDULER_CRON: 0 */10 * * * *
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       shop-db:
         condition: service_healthy
-  shop-backend-2:
-    build: ./
-    container_name: shop-backend-2
-    hostname: shop-2
+  shop-service-2:
+    build: ./src/shop-service/
+    container_name: shop-service-2
+    hostname: shop-service-2
     restart: on-failure
     env_file:
       - .env
     environment:
-      DB_HOST: shop-db
       SERVER_PORT: 8081
+      SPRING_PROFILES_ACTIVE: prod
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     depends_on:
       shop-db:
         condition: service_healthy
-  shop-backend-3:
-    build: ./
-    container_name: shop-backend-3
-    hostname: shop-3
+  shop-service-3:
+    build: ./src/shop-service/
+    container_name: shop-service-3
+    hostname: shop-service-3
     restart: on-failure
     env_file:
       - .env
     environment:
-      DB_HOST: shop-db
       SERVER_PORT: 8082
+      SPRING_PROFILES_ACTIVE: prod
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      shop-db:
+        condition: service_healthy
+  user-service:
+    build: ./src/user-service/
+    container_name: user-service
+    hostname: user-service
+    restart: on-failure
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
     depends_on:
       shop-db:
         condition: service_healthy
@@ -74,12 +101,12 @@ services:
     depends_on:
       pgadmin:
         condition: service_started
-      shop-backend-1:
-        condition: service_started
-      shop-backend-2:
-        condition: service_started
-      shop-backend-3:
-        condition: service_started
+      shop-service-1:
+        condition: service_healthy
+      shop-service-2:
+        condition: service_healthy
+      shop-service-3:
+        condition: service_healthy
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/static:/data/www/static:ro

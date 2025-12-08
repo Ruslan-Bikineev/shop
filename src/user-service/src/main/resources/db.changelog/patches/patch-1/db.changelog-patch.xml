@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        logicalFilePath="db.changelog/patches/patch-1/db.changelog-patch.xml">
+
+    <changeSet id="1-create-users" author="RB">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="users" remarks="Пользователи системы">
+            <column name="id" type="BIGSERIAL" remarks="Идентификатор пользователя">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)" remarks="Имя пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)" remarks="Фамилия пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)" remarks="Хеш пароля">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mail" type="VARCHAR(255)" remarks="Почта пользователя">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(20)" remarks="Номер телефона пользователя">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

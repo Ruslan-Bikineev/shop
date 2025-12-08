@@ -1,0 +1,23 @@
+spring:
+  grpc:
+    server:
+      port: 8081
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5435/user_service
+    username: postgres
+    password: postgres
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+logging.level.org:
+  hibernate:
+    orm:
+      jdbc:
+        bind: TRACE
+  springframework.jdbc.core:
+    JdbcTemplate: DEBUG
+    StatementCreatorUtils: TRACE
