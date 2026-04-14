@@ -12,6 +12,7 @@ import java.util.UUID;
 
 @Repository
 public interface CategoryRepository extends ListCrudRepository<Category, UUID> {
+
     @Query("SELECT c FROM Category c WHERE LOWER(c.name) = LOWER(:name)")
     Optional<Category> findByName(String name);
 

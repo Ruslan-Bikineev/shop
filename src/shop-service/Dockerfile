@@ -1,11 +1,12 @@
-FROM maven:3.9.9-amazoncorretto-21 AS builder
+FROM eclipse-temurin:21-jdk-noble AS builder
 WORKDIR /app
-COPY pom.xml /app/.
-RUN mvn -B dependency:resolve
-COPY ../.. /app/.
-RUN mvn clean package -Dmaven.test.skip=true
+COPY pom.xml mvnw /app/
+COPY .mvn /app/.mvn
+RUN ./mvnw -B dependency:resolve
+COPY src /app/src
+RUN ./mvnw clean package -Dmaven.test.skip=true
 
-FROM amazoncorretto:21-al2-jdk
+FROM eclipse-temurin:21-jre-noble
 WORKDIR /app
 COPY --from=builder /app/target/*.jar /app/shop-service.jar
 EXPOSE 8080

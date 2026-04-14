@@ -12,12 +12,15 @@ import java.security.PublicKey;
 @Component
 public class RsaKeyProvider {
 
+    private static final String RSA = "RSA";
+    private static final int KEY_SIZE = 2048;
+
     private KeyPair keyPair;
 
     @PostConstruct
     public void init() throws NoSuchAlgorithmException {
-        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-        generator.initialize(2048);
+        KeyPairGenerator generator = KeyPairGenerator.getInstance(RSA);
+        generator.initialize(KEY_SIZE);
         this.keyPair = generator.generateKeyPair();
     }
 

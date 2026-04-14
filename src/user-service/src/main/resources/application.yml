@@ -7,3 +7,8 @@ spring:
   liquibase:
     change-log: classpath:db.changelog/db.changelog-patches.xml
     enabled: true
+  grpc:
+    server:
+      health:
+        actuator:
+          enabled: true

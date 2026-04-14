@@ -11,6 +11,8 @@ spring:
       channels:
         user-grpc:
           address: ${USER_GRPC_SERVER_HOST}
+          health:
+            enabled: true
 
 scheduler:
   categories:
