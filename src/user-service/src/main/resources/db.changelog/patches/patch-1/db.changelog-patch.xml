@@ -6,7 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
         logicalFilePath="db.changelog/patches/patch-1/db.changelog-patch.xml">
 
-    <changeSet id="1-create-users" author="RB">
+    <changeSet id="create table users" author="RB">
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="users"/>
@@ -30,6 +30,12 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="phone_number" type="VARCHAR(20)" remarks="Номер телефона пользователя">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="timestamptz" defaultValueComputed="now()" remarks="Время создания записи">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated" type="timestamptz" defaultValueComputed="now()" remarks="Время обновления записи">
                 <constraints nullable="false"/>
             </column>
         </createTable>

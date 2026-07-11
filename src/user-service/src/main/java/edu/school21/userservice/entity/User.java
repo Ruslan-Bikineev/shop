@@ -11,6 +11,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.OffsetDateTime;
 
 @Getter
 @Setter
@@ -41,4 +45,11 @@ public class User {
     @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
+    @CreationTimestamp
+    @Column(name = "created", nullable = false, updatable = false)
+    private OffsetDateTime created;
+
+    @UpdateTimestamp
+    @Column(name = "updated", nullable = false)
+    private OffsetDateTime updated;
 }

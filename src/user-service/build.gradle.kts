@@ -4,7 +4,6 @@ val liquibaseVersion by extra("4.31.1")
 
 val javaVersion = "25"
 val pgvVersion = "1.3.3"
-val mapstructVersion = "1.6.3"
 val jsonwebtokenVersion = "0.12.6"
 
 plugins {
@@ -36,7 +35,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-liquibase")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
-    implementation("org.mapstruct:mapstruct:$mapstructVersion")
     implementation("io.jsonwebtoken:jjwt-api:$jsonwebtokenVersion")
     implementation("build.buf.protoc-gen-validate:pgv-java-stub:$pgvVersion")
 
@@ -49,7 +47,6 @@ dependencies {
     compileOnly("org.projectlombok:lombok")
 
     annotationProcessor("org.projectlombok:lombok")
-    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
 }
 
 protobuf {
