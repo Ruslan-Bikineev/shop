@@ -35,9 +35,8 @@ public class UserGrpcFacade {
 
     public JwtTokenRsDto create(CreateUserRqDto request) {
         validateRequest(request);
-        userService.checkExistUserByUsername(request.getMail());
-        User user = userService.save(request);
-        String token = jwtUtil.generateToken(user.getId());
+        Long userId = userService.save(request);
+        String token = jwtUtil.generateToken(userId);
         return JwtTokenRsDto.newBuilder()
                 .setToken(token)
                 .build();

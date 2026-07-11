@@ -2,9 +2,8 @@ package edu.school21.userservice.service;
 
 import api.edu.school21.proto.grpc.v1.CreateUserRqDto;
 import edu.school21.userservice.entity.User;
+import edu.school21.userservice.repository.UserJDBCRepository;
 import edu.school21.userservice.repository.UserRepository;
-import edu.school21.userservice.utils.MapperUtil;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,15 +16,14 @@ import java.util.UUID;
 @Service
 public class UserService {
 
-    private final MapperUtil mapperUtil;
     private final UserRepository userRepository;
+    private final UserJDBCRepository userJDBCRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public User save(CreateUserRqDto request) {
-        User user = mapperUtil.mapToUser(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+    public Long save(CreateUserRqDto createUserRqDto) {
+        String passwordEncoded = passwordEncoder.encode(createUserRqDto.getPassword());
+        return userJDBCRepository.saveWithOnConflictMail(createUserRqDto, passwordEncoded);
     }
 
     public User changePassword(Long id, String newPassword) {
@@ -42,12 +40,5 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with mail: %s not found.".formatted(mail)));
         user.setPassword(passwordEncoder.encode(newPassword));
         return newPassword;
-    }
-
-    @Transactional(readOnly = true)
-    public void checkExistUserByUsername(String mail) {
-        if (userRepository.isExistsByMail(mail)) {
-            throw new EntityExistsException("User with mail: %s already exists.".formatted(mail));
-        }
     }
 }

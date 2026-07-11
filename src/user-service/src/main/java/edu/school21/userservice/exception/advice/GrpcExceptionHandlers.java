@@ -1,11 +1,11 @@
 package edu.school21.userservice.exception.advice;
 
 import edu.school21.userservice.exception.InvalidJwtTokenException;
+import edu.school21.userservice.exception.UserAlreadyExistsException;
 import edu.school21.userservice.exception.ValidationRequestException;
 import io.envoyproxy.pgv.ValidationException;
 import io.grpc.Metadata;
 import io.grpc.Status;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,9 +26,9 @@ public class GrpcExceptionHandlers {
             Metadata.Key.of("error-code", Metadata.ASCII_STRING_MARSHALLER);
 
     @Bean
-    public GrpcExceptionHandler entityExistsExceptionHandler() {
+    public GrpcExceptionHandler userAlreadyExistsExceptionHandler() {
         return exception -> {
-            if (exception instanceof EntityExistsException) {
+            if (exception instanceof UserAlreadyExistsException) {
                 Metadata metadata = new Metadata();
                 metadata.put(ERROR_CODE_METADATA_KEY, ALREADY_EXISTS.name());
                 return Status.ALREADY_EXISTS
