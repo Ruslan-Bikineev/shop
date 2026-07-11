@@ -14,10 +14,8 @@ spring:
       ddl-auto: none
 
 logging.level.org:
-  hibernate:
-    orm:
-      jdbc:
-        bind: TRACE
+  org.hibernate.SQL: DEBUG
+  hibernate.orm.jdbc.bind: TRACE
   springframework.jdbc.core:
     JdbcTemplate: DEBUG
     StatementCreatorUtils: TRACE
